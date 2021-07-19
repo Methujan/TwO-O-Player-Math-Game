@@ -1,12 +1,13 @@
 class Game
-  # puts "Welcome to the TwO-O-Player Math Game. What is Player 1's name?"
-  # player1 = gets.chomp
-  # puts "What is Player 2's name?"
-  # player2 = gets.chomp
+  puts "Welcome to the TwO-O-Player Math Game. What is Player 1's name?"
+  player1_name = gets.chomp.to_s
+  puts "What is Player 2's name?"
+  player2_name = gets.chomp.to_s
   LIVES = 3
+
   def initialize
-    @player_1 = Players.new(1, LIVES)
-    @player_2 = Players.new(2, LIVES)
+    @player_1 = Players.new(player1_name, LIVES)
+    @player_2 = Players.new(player2_name, LIVES)
     @question = Questions.new
     @player_turn = @player_1
   end
@@ -14,32 +15,39 @@ class Game
 
   def show_question
     @question.make_question
+    puts "#{@player_turn.name}"
     puts "Player #{@player_turn}: #{@question.question}"
   end
 
-  # def get_answer
-  #   player_answer = gets.chomp.to_i
-  # end
-
-  # def check_answer
-  #   player_answer == @question.answer
-  # end
 
   def get_check_answer
     player_answer = gets.chomp.to_i
     player_answer == @question.answer
   end
 
+
+  def next_turn
+    if @player_1.lives > 0 && @player_2.lives > 0 
+    puts "----- NEXT TURN -----"
+    end
+  end
+
+
   def next_player
     if @player_turn === @player_1
       @player_turn = @player_2
-      puts "----- NEXT TURN -----"
-
     else @player_turn === @player_2
       @player_turn = @player_1
-      puts "----- NEXT TURN -----"
     end
   end
+
+
+  def game_over
+    puts "#{@player_turn} wins with a score of #{@player_turn.lives}"
+    puts "----- GAME OVER -----"
+    puts "Good bye!"
+  end 
+
 
   def start 
     while @player_1.lives > 0 && @player_2.lives > 0 do
@@ -50,6 +58,7 @@ class Game
         puts "YES! you are correct."
         puts "P1:#{@player_1.lives}/3 vs P2:#{@player_2.lives}/3 "
         next_player
+        next_turn
     
       # if incorrect, lose 1 life ..  change player
       else
@@ -57,7 +66,9 @@ class Game
         puts "Seriously? No!"
         puts "P1:#{@player_1.lives}/3 vs P2:#{@player_2.lives}/3 "
         next_player
+        next_turn
       end
     end 
+    game_over
   end 
 end
