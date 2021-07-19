@@ -1,13 +1,16 @@
 class Game
-  puts "Welcome to the TwO-O-Player Math Game. What is Player 1's name?"
-  player1_name = gets.chomp.to_s
-  puts "What is Player 2's name?"
-  player2_name = gets.chomp.to_s
+  puts "Welcome to the TwO-O-Player Math Game." 
+  # puts "What is Player 1's name?"
+  # player1_name = gets.chomp.to_s
+  # puts "What is Player 2's name?"
+  # player2_name = gets.chomp.to_s
   LIVES = 3
 
   def initialize
-    @player_1 = Players.new(player1_name, LIVES)
-    @player_2 = Players.new(player2_name, LIVES)
+    # @player_1 = Players.new(player1_name, LIVES)
+    @player_1 = Players.new(1, LIVES)
+    # @player_2 = Players.new(player2_name, LIVES)
+    @player_2 = Players.new(2, LIVES)
     @question = Questions.new
     @player_turn = @player_1
   end
@@ -16,7 +19,7 @@ class Game
   def show_question
     @question.make_question
     puts "#{@player_turn.name}"
-    puts "Player #{@player_turn}: #{@question.question}"
+    puts "Player #{@player_turn.name}: #{@question.question}"
   end
 
 
